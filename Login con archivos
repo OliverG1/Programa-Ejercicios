@@ -1,0 +1,97 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO; //Se le agrega cuando se quiere trabajar con archivos
+
+namespace Proyecto_final
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            TextWriter archivo;
+            TextReader leer_archivo;
+            string n, contraseña, prueba, respuesta;
+            Int32 opcion;
+            do
+            {
+                do
+                {
+                    Registro:
+                    Console.WriteLine("Registro");
+                    Console.WriteLine("Seleccione la acción que desea relizar [1-2]: ");
+                    Console.WriteLine("--------------------------------------------------");
+                    Console.WriteLine("[1] Conectarse");
+                    Console.WriteLine("[2] Crear cuenta");
+                    opcion = Convert.ToInt32(Console.ReadLine());
+
+                    switch (opcion)
+                    {
+                        case 1:
+                       
+                            Console.Write("Introduzca su nombre de usuario: ");
+                            n = Console.ReadLine();
+                            if (File.Exists(@"C:\Users\OLIVER FELIZ\source\repos\Proyecto final\Proyecto final\bin\Debug\" + n + ".txt"))
+                            {
+                                Console.Write("Introduzca su contraseña: ");
+                                contraseña = Console.ReadLine();
+                                leer_archivo = new StreamReader(n + ".txt");
+                                prueba = (leer_archivo.ReadLine());
+
+                                if (contraseña == prueba)
+                                {
+                                    Console.WriteLine("Lo lograste");
+                                    Console.WriteLine(prueba);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("La contraseña que ingresó es incorrecta");
+                                }
+                            }
+
+                            else
+                            {
+                                Console.WriteLine("Este nombre de usuario no existe");
+                                goto Registro;
+                            }
+                            break;
+                        case 2:
+                        inicio:
+                            Console.Write("Introduzca su nombre de usuario: ");
+                            n = Console.ReadLine();
+
+
+                            if (File.Exists(@"C:\Users\OLIVER FELIZ\source\repos\Proyecto final\Proyecto final\bin\Debug\" + n + ".txt"))
+                            {
+                                Console.WriteLine("Este nombre de usuario ya esta en uso. Intentelo de nuevo");
+                                goto inicio;
+
+                            }
+                            Console.Write("Introduzca su contraseña: ");
+                            contraseña = Console.ReadLine();
+
+                            archivo = new StreamWriter(n + ".txt");
+                            archivo.WriteLine(contraseña);
+                            archivo.Close();
+
+                            Console.Clear();
+                            Console.WriteLine("Se ha creado su cuenta exitosamente");
+                            Console.ReadKey();
+                            break;
+                        default:
+                            Console.WriteLine("La acción elegida no esta disponible");
+                            break;
+
+                    }
+                } while (opcion != 1 && opcion != 2);
+
+                Console.WriteLine("¿Desea continuar? [Si/No]");
+                respuesta = Console.ReadLine().ToLower();
+
+            } while (respuesta == "si");
+
+        }
+    }
+}
