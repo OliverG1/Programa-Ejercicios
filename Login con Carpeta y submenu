@@ -1,0 +1,187 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO; //Se le agrega cuando se quiere trabajar con archivos
+using System.ComponentModel.Design;
+
+namespace Proyecto_final
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            TextWriter archivo;
+            TextReader leer_archivo;
+            string n, contraseña, prueba, respuesta, edad, peso, altura, sexo, intensidad, respuesta1;
+            Directory.CreateDirectory(@"C:\Users\Titor\OneDrive\Desktop\Trimestre 3\Programacion\Semana 7\ConsoleApp5\ConsoleApp5\bin\Debug\netcoreapp3.1\Usuario");
+            Int32 opcion, opcion1;
+            do
+            {
+                do
+                {
+                Registro:
+                    Console.WriteLine("Registro");
+                    Console.WriteLine("Seleccione la acción que desea relizar [1-2]: ");
+                    Console.WriteLine("--------------------------------------------------");
+                    Console.WriteLine("[1] Conectarse");
+                    Console.WriteLine("[2] Crear cuenta");
+                    opcion = Convert.ToInt32(Console.ReadLine());
+
+                    switch (opcion)
+                    {
+                        case 1:
+
+                            Console.Write("Introduzca su nombre de usuario: ");
+                            n = Console.ReadLine();
+
+                            if (Directory.Exists(@"C:\Users\Titor\OneDrive\Desktop\Trimestre 3\Programacion\Semana 7\ConsoleApp5\ConsoleApp5\bin\Debug\netcoreapp3.1\Usuario" + "/" + n))
+                            {
+                                Console.Write("Introduzca su contraseña: ");
+                                contraseña = Console.ReadLine();
+                                leer_archivo = new StreamReader(@"C:\Users\Titor\OneDrive\Desktop\Trimestre 3\Programacion\Semana 7\ConsoleApp5\ConsoleApp5\bin\Debug\netcoreapp3.1\Usuario" + "/" + n + "/" + "Contraseña.txt");
+                                prueba = (leer_archivo.ReadLine());
+                                Console.Clear();
+
+
+                                if (contraseña == prueba)
+                                {
+                                    
+                                    Console.WriteLine("Lo lograste");
+                                    do
+                                    {
+                                    Menu :
+                                        Console.WriteLine("Menu");
+                                        Console.WriteLine("Seleccione la acción que desea relizar [1-3]: ");
+                                        Console.WriteLine("--------------------------------------------------");
+                                        Console.WriteLine("[1] Aumentar masa corporea");
+                                        Console.WriteLine("[2] Adelgazar masa corporea");
+                                        Console.WriteLine("[3] Trabajar alguna area en especifico");
+                                        Console.WriteLine("[4] Conocer su progresion");
+                                        Console.WriteLine("[5] Volver al menu anterior");
+
+                                        opcion1 = Convert.ToInt32(Console.ReadLine());
+
+                                        switch (opcion1)
+                                        {
+                                            case 1: 
+                                           
+                                            Console.WriteLine("Para aumentar masa corpera");
+                                            Console.WriteLine("¿Desea regresar al menu anterior? [Si/No]");
+                                                break;
+
+                                            case 2:
+
+                                                Console.WriteLine("Para adelgazar masa corporea");
+                                                break;
+                                            case 3:
+
+                                                Console.WriteLine("Para trabajar alguna area en especifico");
+                                                break;
+                                            case 4:
+
+                                                Console.WriteLine("Su progresion es ");
+                                                break;
+
+                                            case 5:
+                                                Console.WriteLine("Regresar al menu anterior");
+                                                goto Registro;
+                                        }
+                                        
+                                    }
+                                   
+                                    while (opcion != 1 && opcion != 2);
+
+
+                                    Console.WriteLine("¿Desea continuar? [Si/No]");
+                                    respuesta1 = Console.ReadLine().ToLower();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("La contraseña que ingresó es incorrecta");
+                                }
+                                
+                            }
+
+                            else
+                            {
+                                Console.WriteLine("Este nombre de usuario no existe");
+                                goto Registro;
+                            }
+                            break;
+                        case 2:
+                        inicio:
+                            Console.Write("Introduzca su nombre de usuario: ");      
+                            n = Console.ReadLine();
+
+                            Directory.CreateDirectory(@"C:\Users\Titor\OneDrive\Desktop\Trimestre 3\Programacion\Semana 7\ConsoleApp5\ConsoleApp5\bin\Debug\netcoreapp3.1\Usuario" + "/" + n);
+                            archivo = new StreamWriter(@"C:\Users\Titor\OneDrive\Desktop\Trimestre 3\Programacion\Semana 7\ConsoleApp5\ConsoleApp5\bin\Debug\netcoreapp3.1\Usuario" + "/" + n + "/" + "Usuario.txt");
+                            archivo.WriteLine(n);
+                            archivo.Close();
+
+                            Console.Write("Digite su edad: ");
+                            edad = Console.ReadLine();
+
+                            archivo = new StreamWriter(@"C:\Users\Titor\OneDrive\Desktop\Trimestre 3\Programacion\Semana 7\ConsoleApp5\ConsoleApp5\bin\Debug\netcoreapp3.1\Usuario" + "/" + n + "/" + "Edad.txt");
+                            archivo.WriteLine(edad);
+                            archivo.Close();
+
+
+                            Console.Write("Digite su altura: ");
+                            altura = Console.ReadLine();
+
+                            archivo = new StreamWriter(@"C:\Users\Titor\OneDrive\Desktop\Trimestre 3\Programacion\Semana 7\ConsoleApp5\ConsoleApp5\bin\Debug\netcoreapp3.1\Usuario" + "/" + n + "/" + "Altura.txt");
+                            archivo.WriteLine(altura);
+                            archivo.Close();
+
+                            Console.Write("Digite su sexo: ");
+                            sexo = Console.ReadLine();
+                            archivo = new StreamWriter(@"C:\Users\Titor\OneDrive\Desktop\Trimestre 3\Programacion\Semana 7\ConsoleApp5\ConsoleApp5\bin\Debug\netcoreapp3.1\Usuario" + "/" + n + "/" + "Sexo.txt");
+                            archivo.WriteLine(sexo);
+                            archivo.Close();
+
+                            Console.Write("Digite su peso: ");
+                            peso = Console.ReadLine();
+                            archivo = new StreamWriter(@"C:\Users\Titor\OneDrive\Desktop\Trimestre 3\Programacion\Semana 7\ConsoleApp5\ConsoleApp5\bin\Debug\netcoreapp3.1\Usuario" + "/" + n + "/" + "Peso.txt");
+                            archivo.WriteLine(peso);
+                            archivo.Close();
+
+                            Console.Write("Nivel de intensidad Bajo/Intermedio/Alto/Extremo: ");
+                            intensidad = Console.ReadLine();
+                            archivo = new StreamWriter(@"C:\Users\Titor\OneDrive\Desktop\Trimestre 3\Programacion\Semana 7\ConsoleApp5\ConsoleApp5\bin\Debug\netcoreapp3.1\Usuario" + "/" + n + "/" + "Intensidad.txt");
+                            archivo.WriteLine(intensidad);
+                            archivo.Close();
+
+                            if (File.Exists(@"C:\Users\Titor\OneDrive\Desktop\Trimestre 3\Programacion\Semana 7\ConsoleApp5\ConsoleApp5\bin\Debug\netcoreapp3.1\Usuario" + "/" + n ))
+                            {
+                                Console.WriteLine("Este nombre de usuario ya esta en uso. Intentelo de nuevo");
+                                goto inicio;
+
+                            }
+                            Console.Write("Introduzca una contraseña: ");
+                            contraseña = Console.ReadLine();
+
+                            archivo = new StreamWriter(@"C:\Users\Titor\OneDrive\Desktop\Trimestre 3\Programacion\Semana 7\ConsoleApp5\ConsoleApp5\bin\Debug\netcoreapp3.1\Usuario" + "/"  + n + "/" + "Contraseña.txt");
+                            archivo.WriteLine(contraseña);
+                            archivo.Close();
+
+                            Console.Clear();
+                            Console.WriteLine("Se ha creado su cuenta exitosamente");
+                            Console.ReadKey();
+                            break;
+                        default:
+                            Console.WriteLine("La acción elegida no esta disponible");
+                            break;
+
+                    }
+                } while (opcion != 1 && opcion != 2);
+
+                Console.WriteLine("¿Desea continuar? [Si/No]");
+                respuesta = Console.ReadLine().ToLower();
+
+            } while (respuesta == "si");
+
+        }
+    }
+}
