@@ -1,0 +1,371 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.ComponentModel.Design;
+
+namespace Asunto_de_programación
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            TextWriter archivo;
+            TextReader leer_archivo;
+            string n, contraseña, contraseñaL, respuesta, sexo, sexoL, intensidad, intensidadL;
+            Double peso, pesoD, pesoL, altura, alturaL;
+            Int32 opcion, opcion1, edad, edadL;
+            Directory.CreateDirectory(@"Documents\Usuario");
+            DateTime fecha;
+          
+            do
+            {
+                do
+                {
+                Registro:
+                    Console.WriteLine("Registro");
+                    Console.WriteLine("Seleccione la acción que desea realizar [1-2]: ");
+                    Console.WriteLine("--------------------------------------------------");
+                    Console.WriteLine("[1] Conectarse");
+                    Console.WriteLine("[2] Crear cuenta");
+                    opcion = Convert.ToInt32(Console.ReadLine());
+
+                    switch (opcion)
+                    {
+                        case 1:
+
+                            Console.Write("Introduzca su nombre de usuario: ");
+                            n = Console.ReadLine();
+
+                            if (Directory.Exists(@"Documents\Usuario\" + n))
+                            {
+                                Console.Write("Introduzca su contraseña: ");
+                                contraseña = Console.ReadLine();
+                                leer_archivo = new StreamReader(@"Documents\Usuario\" + n + "/Contraseña.txt");
+                                contraseñaL = (leer_archivo.ReadLine());
+                                Console.Clear();
+
+
+                                if (contraseña == contraseñaL)
+                                {
+                              
+                                    do
+                                    {
+                   
+                                     Menu:
+                                        Console.WriteLine("Menu");
+                                        Console.WriteLine("Seleccione la acción que desea relizar [1-4]: ");
+                                        Console.WriteLine("--------------------------------------------------");
+                                        Console.WriteLine("[1] Aumentar peso");
+                                        Console.WriteLine("[2] Disminuir peso");
+                                        Console.WriteLine("[3] Trabajar algún área en específico");
+                                        Console.WriteLine("[4] Mantenerse en forma");
+                                        Console.WriteLine("[5] Continuar rutina");
+
+                                        leer_archivo = new StreamReader(@"Documents\Usuario\" + n + "/Peso.txt");
+                                        pesoL = Convert.ToDouble((leer_archivo.ReadLine()));
+
+                                        leer_archivo = new StreamReader(@"Documents\Usuario\" + n + "/Edad.txt");
+                                        edadL = Convert.ToInt32((leer_archivo.ReadLine()));
+
+                                        leer_archivo = new StreamReader(@"Documents\Usuario\" + n + "/Altura.txt");
+                                        alturaL = Convert.ToDouble((leer_archivo.ReadLine()));
+
+                                        leer_archivo = new StreamReader(@"Documents\Usuario\" + n + "/Sexo.txt");
+                                        sexoL = (leer_archivo.ReadLine());
+
+                                        fecha = DateTime.Today;
+
+                                        opcion1 = Convert.ToInt32(Console.ReadLine());
+
+                                        switch (opcion1)
+                                        {
+                                            case 1:
+
+                                                if (File.Exists(@"Documents\Usuario\" + n + "/Rutina.txt"))
+                                                {
+                                                    Console.WriteLine("Ya posee una rutina actualmente");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                    goto Menu;
+                                                }
+
+                                                else
+                                                {
+
+                                                    do
+                                                    {
+                                                        Console.Write("Introduzca su peso deseado: ");
+                                                        pesoD = Convert.ToDouble(Console.ReadLine());
+
+                                                        if (pesoD < pesoL + 1)
+                                                        {
+                                                            Console.WriteLine("El peso deseado ingresado es menor o igual al actual. Introduzcalo nuevamente.");
+                                                        }
+                                                    } while (pesoD < pesoL + 1);
+                                                    do
+                                                    {
+                                                        Console.WriteLine("Seleccione la intensidad de la rutina: [1-3]");
+                                                        Console.WriteLine("[1] Intensidad baja");
+                                                        Console.WriteLine("[2] Intensidad intermedia");
+                                                        Console.WriteLine("[3] Intensidad alta");
+                                                        intensidad = Console.ReadLine();
+
+                                                        switch (intensidad)
+                                                        {
+                                                            case "1":
+                                                                archivo = new StreamWriter(@"Documents\Usuario\" + n + "/Intensidad.txt");
+                                                                archivo.WriteLine("Intensidad baja");
+                                                                archivo.Close();
+
+                                                                leer_archivo = new StreamReader(@"Documents\Usuario\" + n + "/Intensidad.txt");
+                                                                intensidadL = (leer_archivo.ReadLine());
+
+                                                                Console.Clear();
+                                                                archivo = new StreamWriter(@"Documents\Usuario\" + n + "/Rutina.txt");
+                                                                archivo.WriteLine("Su altura: " + alturaL);
+                                                                archivo.WriteLine("Su sexo: " + sexoL);
+                                                                archivo.WriteLine("Su edad inicial: " + edadL);
+                                                                archivo.WriteLine("La fecha inicial: " + fecha.ToString("dd/MM/yy"));
+                                                                archivo.WriteLine("Su peso actual: " + pesoL);
+                                                                archivo.WriteLine("Su peso deseado: " + pesoD);
+                                                                archivo.WriteLine("La intensidad actual: " + intensidadL);
+                                                                archivo.WriteLine("Su rutina es: ");
+                                                                archivo.Close();
+
+                                                                leer_archivo = new StreamReader(@"Documents\Usuario\" + n + "/Rutina.txt");
+                                                                Console.WriteLine(leer_archivo.ReadToEnd());
+                                                                break;
+                                                            case "2":
+                                                                archivo = new StreamWriter(@"Documents\Usuario\" + n + "/Intensidad.txt");
+                                                                archivo.WriteLine("Intensidad media");
+                                                                archivo.Close();
+
+                                                                leer_archivo = new StreamReader(@"Documents\Usuario\" + n + "/Intensidad.txt");
+                                                                intensidadL = (leer_archivo.ReadLine());
+
+                                                                Console.Clear();
+                                                                archivo = new StreamWriter(@"Documents\Usuario\" + n + "/Rutina.txt");
+                                                                archivo.WriteLine("Su altura: " + alturaL);
+                                                                archivo.WriteLine("Su sexo: " + sexoL);
+                                                                archivo.WriteLine("Su edad inicial: " + edadL);
+                                                                archivo.WriteLine("La fecha inicial: " + fecha.ToString("dd/MM/yy"));
+                                                                archivo.WriteLine("Su peso actual: " + pesoL);
+                                                                archivo.WriteLine("Su peso deseado: " + pesoD);
+                                                                archivo.WriteLine("La intensidad actual: " + intensidadL);
+                                                                archivo.WriteLine("Su rutina es: ");
+                                                                archivo.Close();
+
+                                                                leer_archivo = new StreamReader(@"Documents\Usuario\" + n + "/Rutina.txt");
+                                                                Console.WriteLine(leer_archivo.ReadToEnd());
+                                                                break;
+                                                            case "3":
+                                                                archivo = new StreamWriter(@"Documents\Usuario\" + n + "/Intensidad.txt");
+                                                                archivo.WriteLine("Intensidad alta");
+                                                                archivo.Close();
+
+                                                                leer_archivo = new StreamReader(@"Documents\Usuario\" + n + "/Intensidad.txt");
+                                                                intensidadL = (leer_archivo.ReadLine());
+
+                                                                Console.Clear();
+                                                                archivo = new StreamWriter(@"Documents\Usuario\" + n + "/Rutina.txt");
+                                                                archivo.WriteLine("Su altura: " + alturaL);
+                                                                archivo.WriteLine("Su sexo: " + sexoL);
+                                                                archivo.WriteLine("Su edad inicial: " + edadL);
+                                                                archivo.WriteLine("La fecha inicial: " + fecha.ToString("dd/MM/yy"));
+                                                                archivo.WriteLine("Su peso actual: " + pesoL);
+                                                                archivo.WriteLine("Su peso deseado: " + pesoD);
+                                                                archivo.WriteLine("La intensidad actual: " + intensidadL);
+                                                                archivo.WriteLine("Su rutina es: ");
+                                                                archivo.Close();
+
+                                                                leer_archivo = new StreamReader(@"Documents\Usuario\" + n + "/Rutina.txt");
+                                                                Console.WriteLine(leer_archivo.ReadToEnd());
+                                                                break;
+                                                            default:
+                                                                Console.WriteLine("La opción seleccionada no es válida");
+                                                                break;
+                                                        }
+                                                    } while (intensidad != "1" && intensidad != "2" && intensidad != "3");
+                                                }
+                                                Console.ReadKey();
+                                                Console.Clear();
+                                                break;
+
+                                            case 2:
+                                                if (File.Exists(@"Documents\Usuario\" + n + "/Rutina.txt"))
+                                                {
+                                                    Console.WriteLine("Ya posee una rutina actualmente");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                    goto Menu;
+                                                }
+                                                else
+                                                {
+                                                    Console.Clear();
+                                                    Console.WriteLine("Proximamente...");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                    goto Menu; //Momentaneo
+                                                }
+                                                break;
+                                            case 3:
+                                                if (File.Exists(@"Documents\Usuario\" + n + "/Rutina.txt"))
+                                                {
+                                                    Console.WriteLine("Ya posee una rutina actualmente");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                    goto Menu;
+                                                }
+                                                else
+                                                {
+                                                    Console.Clear();
+                                                    Console.WriteLine("Proximamente...");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                    goto Menu; //Momentaneo
+                                                }
+                                                break;
+                                            case 4:
+                                                if (File.Exists(@"Documents\Usuario\" + n + "/Rutina.txt"))
+                                                {
+                                                    Console.WriteLine("Ya posee una rutina actualmente");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                    goto Menu;
+                                                }
+                                                else
+                                                {
+                                                    Console.Clear();
+                                                    Console.WriteLine("Proximamente...");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                    goto Menu; //Momentaneo
+                                                }
+                                                break;
+                                            case 5:
+                                                if (File.Exists(@"Documents\Usuario\" + n + "/Rutina.txt"))
+                                                {
+                                                    Console.Clear();
+                                                    leer_archivo = new StreamReader(@"Documents\Usuario\" + n + "/Rutina.txt");
+                                                    Console.WriteLine(leer_archivo.ReadToEnd());
+
+                                                    Console.WriteLine("Proximamente...");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("No existe una rutina actualmente");
+                                                    Console.ReadKey();
+                                                    Console.Clear();
+                                                    goto Menu;
+                                                }
+                                                break;
+
+
+                                        }
+                                    }
+                                    while (opcion1 != 1 && opcion1 != 2 && opcion1 != 3 && opcion1 != 4 && opcion1 != 5);
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine("La contraseña que ingresó es incorrecta");
+                                }
+
+                            }
+
+                            else
+                            {
+                                Console.WriteLine("Este nombre de usuario no existe");
+                                goto Registro;
+                            }
+                            break;
+                        case 2:
+                        inicio:
+                            Console.Write("Introduzca su nombre de usuario: ");
+                            n = Console.ReadLine();
+
+                            if (Directory.Exists(@"Documents\Usuario\" + n))
+                            {
+                                Console.WriteLine("Este nombre de usuario ya esta en uso. Intentelo de nuevo");
+                                goto inicio;
+
+                            }
+
+                            Directory.CreateDirectory(@"Documents\Usuario\" + n);
+                            archivo = new StreamWriter(@"Documents\Usuario\" + n + "/Usuario.txt");
+                            archivo.WriteLine(n);
+                            archivo.Close();
+
+                            Console.Write("Digite su edad: ");
+                            edad = Convert.ToInt32(Console.ReadLine());
+
+                            archivo = new StreamWriter(@"Documents\Usuario\" + n + "/Edad.txt");
+                            archivo.WriteLine(edad);
+                            archivo.Close();
+
+
+                            Console.Write("Digite su altura (en metros): ");
+                            altura = Convert.ToDouble(Console.ReadLine());
+
+                            archivo = new StreamWriter(@"Documents\Usuario\" + n + "/Altura.txt");
+                            archivo.WriteLine(altura);
+                            archivo.Close();
+
+                            do
+                            {
+                                Console.WriteLine("Seleccione su sexo: [1-2]");
+                                Console.WriteLine("[1] Femenino");
+                                Console.WriteLine("[2] Masculino");
+                                sexo = Console.ReadLine().ToLower();
+                            } while (sexo != "femenino" && sexo != "masculino" && sexo != "1" && sexo != "2");
+
+                            if (sexo == "1" || sexo == "femenino")
+                            {
+                                archivo = new StreamWriter(@"Documents\Usuario\" + n + "/Sexo.txt");
+                                archivo.WriteLine("Femenino");
+                                archivo.Close();
+                            }
+
+                            if (sexo == "2" || sexo == "masculino")
+                            {
+                                archivo = new StreamWriter(@"Documents\Usuario\" + n + "/Sexo.txt");
+                                archivo.WriteLine("Masculino");
+                                archivo.Close();
+                            }
+
+                            Console.Write("Digite su peso (en kilogramos): ");
+                            peso = Convert.ToDouble(Console.ReadLine());
+                            archivo = new StreamWriter(@"Documents\Usuario\" + n + "/Peso.txt");
+                            archivo.WriteLine(peso);
+                            archivo.Close();
+
+                            Console.Write("Introduzca una contraseña: ");
+                            contraseña = Console.ReadLine();
+
+                            archivo = new StreamWriter(@"Documents\Usuario\" + n + "/Contraseña.txt");
+                            archivo.WriteLine(contraseña);
+                            archivo.Close();
+
+                            Console.Clear();
+                            Console.WriteLine("Se ha creado su cuenta exitosamente");
+                            Console.ReadKey();
+                            break;
+                        default:
+                            Console.WriteLine("La acción elegida no esta disponible");
+                            break;
+
+                    }
+                } while (opcion != 1 && opcion != 2);
+
+                Console.WriteLine("¿Desea continuar? [Si/No]");
+                respuesta = Console.ReadLine().ToLower();
+
+            } while (respuesta == "si");
+        }
+    }
+}
